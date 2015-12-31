@@ -52,15 +52,15 @@ class UserController extends BaseController
 
     public function create(CreateRequest $request)
     {
-
-        $user = $this->userRepository->store($request->all());
-
-        if ($user) {
-            //给注册用户发邮件
-            //event(new UserCreate($user));
-            return responseSuccess($user);
-        }
-        return responseWrong();
+        return responseSuccess();
+//        $user = $this->userRepository->store($request->all());
+//
+//        if ($user) {
+//            //给注册用户发邮件
+//            //event(new UserCreate($user));
+//            return responseSuccess($user);
+//        }
+//        return responseWrong();
 
     }
 
