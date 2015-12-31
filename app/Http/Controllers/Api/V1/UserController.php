@@ -50,7 +50,7 @@ class UserController extends BaseController
         return responseWrong('不存在');
     }
 
-    public function create(CreateRequest $request)
+    public function postCreate(CreateRequest $request)
     {
         return responseSuccess();
 //        $user = $this->userRepository->store($request->all());
