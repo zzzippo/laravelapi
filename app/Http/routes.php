@@ -44,7 +44,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1','middleware'=>
         // 获得当前登录的个人信息
         $api->get('/user', ['as' => 'user.me', 'uses' => 'UserController@show']);
         //增加用户
-        $api->post('/user', ['as' => 'user.create', 'uses' => 'UserController@postCreate']);
+        $api->post('/addUser', ['as' => 'user.create', 'uses' => 'UserController@postCreate']);
         // 获得某个人信息
         $api->get('/user/{id}', ['as' => 'user.show', 'uses' => 'UserController@getUserById']);
         // 更新个人信息
