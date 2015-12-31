@@ -8,8 +8,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Events\UserCreate;
 use App\Http\Requests\Admin\CreateRequest;
 use Illuminate\Http\Request;
-use App\Api\Controllers\BaseController;
-use App\Api\Transformers\UserTransformer;
+use App\Http\Controllers\Api\BaseController;
 use App\Repositories\UserRepository;
 
 class UserController extends BaseController
@@ -19,6 +18,13 @@ class UserController extends BaseController
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
+    }
+
+
+    public function getUserList()
+    {
+        $user = $this->userRepository->lists(config('web.perPage'));
+        return responseSuccess($user);
     }
 
     public function getUsers()
@@ -56,12 +62,6 @@ class UserController extends BaseController
         }
         return responseWrong();
 
-    }
-
-    public function getUserList()
-    {
-        $user = $this->userRepository->lists(config('web.perPage'));
-        return $this->response->paginator($user, new UserTransformer);
     }
 
 
