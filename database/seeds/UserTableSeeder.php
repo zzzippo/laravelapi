@@ -15,7 +15,6 @@ class UserTableSeeder extends Seeder
             'username' => 'admin',
             'email' => 'admin@qq.com',
             'password' => bcrypt('123456'),
-            'group' => 1,
             'created_at'=> date('Y-m-d H:i:s', time()),
             'updated_at'=> date('Y-m-d H:i:s', time()),
         ]);

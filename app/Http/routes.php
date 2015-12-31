@@ -27,7 +27,7 @@ $api = app('Dingo\Api\Routing\Router');
 // v1版本的API
 // 不需要验证jwt-token
 
-$api->version('v1', ['namespace' => 'App\Api\Controllers\V1','middleware'=>'api.throttle', 'limit'=>10, 'expires'=>1], function ($api) {
+$api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1','middleware'=>'api.throttle', 'limit'=>10, 'expires'=>1], function ($api) {
     # Auth
     // 登录
     $api->post('auth/login', ['as' => 'auth.login', 'uses' => 'AuthController@login']);

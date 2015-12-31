@@ -6,24 +6,25 @@
 namespace App\Api\Controllers\V1;
 
 use App\Core\Status;
-use App\Api\Controllers\BaseController;
 use App\Events\UserCreate;
-use App\Repositories\DBInterface\UserRepositoryInterface;
+use App\Http\Requests\Admin\CreateRequest;
 use Illuminate\Http\Request;
+use App\Api\Controllers\BaseController;
 use App\Api\Transformers\UserTransformer;
+use App\Repositories\UserRepository;
 
 class UserController extends BaseController
 {
-    private $_user;
+    private $userRepository;
 
-    public function __construct(UserRepositoryInterface $repository)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->_user = $repository;
+        $this->userRepository = $userRepository;
     }
 
     public function getUsers()
     {
-        $users = $this->_user->selectAll();
+        $users = $this->userRepository->lists(config('web.perPage'));
         return $this->successResponse($users);
     }
 
@@ -38,27 +39,15 @@ class UserController extends BaseController
 
     public function getUserById($id)
     {
-        $user = $this->_user->find($id);
+        $user = $this->userRepository->find($id);
         if ($user) {
             return $this->successResponse($user);
         }
-        return $this->errorResponse(Status::RET_DATA_NOT_EXIST);
+        return $this->errorResponse('不存在');
     }
 
-    public function create(Request $request)
+    public function create(CreateRequest $request)
     {
-        $validator = \Validator::make($request->all(), [
-            'username'  => 'required|max:255|min:2',
-            'email'    => 'required|email|unique:users',
-            'password'     => 'required|min:6',
-        ],[
-            'email.unique' => trans('demo.email_has_registed'),
-            'password.min' => '密码最少为6位字符'
-        ]);
-
-        if ($validator->fails()) {
-            return $this->response->error($validator->messages(), 403);
-        }
 
         $user = $this->_user->create($request->all());
 
