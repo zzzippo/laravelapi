@@ -41,7 +41,7 @@ class UserController extends BaseController
         return responseSuccess($this->me());
     }
 
-    public function getUserById(Request $request, $id)
+    public function getUserById($id)
     {
         $user = $this->userRepository->getById($id);
         if ($user) {
@@ -57,7 +57,7 @@ class UserController extends BaseController
 
         if ($user) {
             //给注册用户发邮件
-            event(new UserCreate($user));
+            //event(new UserCreate($user));
             return responseSuccess($user);
         }
         return responseWrong();
@@ -70,9 +70,7 @@ class UserController extends BaseController
      */
     public function update(Request $request, $id)
     {
-
         $user = $this->userRepository->update($id, $request->all());
-
         return responseSuccess($user);
     }
 

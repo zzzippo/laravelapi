@@ -15,11 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('testLang', function(){
-    echo trans('demo.email_has_registed', ['email' => '123@gmail.com']);
-});
-
-Route::get('test', 'TestController@index');
 
 //Dingo/Api
 $api = app('Dingo\Api\Routing\Router');
