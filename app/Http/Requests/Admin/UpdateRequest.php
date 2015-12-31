@@ -4,10 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\Request;
 
-/**
- * Account CreateRequest.
- */
-class CreateRequest extends Request
+class UpdateRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,6 +15,7 @@ class CreateRequest extends Request
     {
         return true;
     }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,9 +24,9 @@ class CreateRequest extends Request
     public function rules()
     {
         return [
-            'username'  => 'required|max:255|min:2|unique:users',
-            'email'    => 'required|email|unique:users',
-            'password'     => 'required|min:6',
+            'username'  => 'required|max:255|min:2',
+            'email'    => 'required|email',
+            'password'     => 'min:6',
         ];
     }
 }
