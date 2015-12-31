@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Exception\HttpResponseException;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use App\Api\Controllers\BaseController;
+use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\User;
