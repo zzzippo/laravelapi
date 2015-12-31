@@ -69,9 +69,10 @@ class UserRepository
      */
     public function savePost($user, $input)
     {
-        $user->fill($input);
-
-        return $user->save();
+        return $input;
+//        $user->fill($input);
+//
+//        return $user->save();
     }
 
 }
