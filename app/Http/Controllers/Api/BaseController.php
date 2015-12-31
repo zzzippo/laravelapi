@@ -15,4 +15,13 @@ class BaseController extends Controller
     // 接口帮助调用
     use Helpers;
 
+
+    protected function me()
+    {
+        if ($token = JWTAuth::getToken()) {
+            return  JWTAuth::parseToken()->toUser();
+        }
+
+        return false;
+    }
 }
