@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\User;
-use DB;
 
 /**
  * User Repository.
@@ -31,46 +30,35 @@ class UserRepository
      *
      * @return \Illuminate\Pagination\Paginator
      */
-    public function lists($filter, $sorter, $page, $pageSize)
+    public function lists($filter, $sorter,$page, $pageSize)
     {
-        $users = DB::table('users');
-        /*
-     * 构建过滤条件
-     */
-        if (is_array($filter) && count($filter) > 0) {
-
-            foreach ( $filter as $key => $value ) {
-
-                //用户名
-                if (strcasecmp($key, 'username') == 0 ) {
-                    $users->where('username', 'LIKE', "%{$value}%");
-                }
-
-            }
-        }
-
-        //构建排序条件
-        if (is_array($sorter) && count($sorter) > 0) {
-            foreach ($sorter as $key => $value) {
-                //ID排序
-                if (strcasecmp($key, 'ID') == 0) {
-                    $sort = $value ? 'asc' : 'desc';
-                    $users->orderBy('id', $sort);
-                }
-            }
-        }
-        //查询数据数量
-        $count = $users->count();
-
-        //获取符合条件的记录列表
-        $t = ($page-1)*$pageSize;
-        $pages = $users->skip($t)->take($pageSize)->get();
-
-        $data = [];
-        $data['total']  =  $count;
-        $data['items'] = $pages;
-
-        return responseSuccess($data);
+//        $user = DB::table('users');
+//        /*
+//     * 构建过滤条件
+//     */
+//        if (is_array($filter) && count($filter) > 0) {
+//
+//            foreach ( $filter as $key => $value ) {
+//
+//                //用户名
+//                if (strcasecmp($key, 'username') == 0 ) {
+//                    $user->where('username', 'LIKE', "%{$value}%");
+//                }
+//
+//            }
+//        }
+//
+//        //构建排序条件
+//        if (is_array($sorter) && count($sorter) > 0) {
+//            foreach ($sorter as $key => $value) {
+//                //ID排序
+//                if (strcasecmp($key, 'ID') == 0) {
+//                    $sort = $value ? 'asc' : 'desc';
+//                    $user->orderBy('id', $sort);
+//                }
+//            }
+//        }
+        return $this->model->orderBy('id', 'desc')->paginate($pageSize);
     }
 
 
@@ -110,33 +98,6 @@ class UserRepository
         $user->fill($input);
 
         return $user->save();
-    }
-
-    /**
-     * Destroy a model.
-     *
-     * @param int $id
-     */
-    public function destroy($id)
-    {
-        $this->getById($id)->delete();
-    }
-
-    /**
-     * Get Model by id.
-     *
-     * @param int $id
-     *
-     * @return App\Models\Model
-     */
-    public function getById($id)
-    {
-        return $this->model->find($id);
-    }
-
-    public function getAll()
-    {
-        return $this->model->all();
     }
 
 }
