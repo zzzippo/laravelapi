@@ -21,9 +21,12 @@ class UserController extends BaseController
     }
 
 
-    public function getUserList()
+    public function getUserList(Request $request)
     {
-        $user = $this->userRepository->lists(config('web.perPage'));
+        $filter = $request->get('filter');
+        $sorter = $request->get('sorter');
+        $perPage = $request->get('perPage')?$request->get('perPage'):config('web.perPage');
+        $user = $this->userRepository->lists($filter, $sorter, $perPage);
         return responseSuccess($user);
     }
 
