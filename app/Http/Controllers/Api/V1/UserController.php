@@ -78,7 +78,7 @@ class UserController extends BaseController
 
     public function delete($id)
     {
-        $res = $this->userRepository->destroy($id);
-        return responseSuccess($res);
+        $this->userRepository->destroy($id);
+        return responseSuccess();
     }
 }
