@@ -12,7 +12,7 @@ trait BaseRepository
      */
     public function destroy($id)
     {
-        $this->getById($id)->delete();
+        return $this->getById($id)->delete();
     }
 
     /**
