@@ -26,7 +26,7 @@ class UserController extends BaseController
         $filter     = $request->get('filter');
         $sorter     = $request->get('sorter');
         $perPage    = $request->get('perPage')?$request->get('perPage'):config('web.perPage');
-        $user = $this->userRepository->lists($filter, $sorter, $perPage);
+        $user = $this->userRepository->lists($filter, $sorter, $request->get('page'), $perPage);
         return responseSuccess($user);
     }
 

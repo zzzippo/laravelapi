@@ -31,7 +31,7 @@ class UserRepository
      *
      * @return \Illuminate\Pagination\Paginator
      */
-    public function lists($filter, $sorter, $pageSize)
+    public function lists($filter, $sorter, $page, $pageSize)
     {
         $user = DB::table('users');
         /*
@@ -59,7 +59,18 @@ class UserRepository
                 }
             }
         }
-        return $user->orderBy('id', 'desc')->paginate($pageSize);
+        //查询数据数量
+        $count = $user->count();
+
+        //获取符合条件的记录列表
+        $t = ($page-1)*$pageSize;
+        $pages = $user->skip($t)->take($pageSize)->get();
+
+        $data = [];
+        $data['total']  =  $count;
+        $data['items'] = $pages;
+
+        return responseSuccess($data);
     }
 
 
