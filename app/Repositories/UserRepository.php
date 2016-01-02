@@ -33,7 +33,7 @@ class UserRepository
      */
     public function lists($filter, $sorter, $page, $pageSize)
     {
-        $user = DB::table('users');
+        $users = DB::table('users');
         /*
      * 构建过滤条件
      */
@@ -43,7 +43,7 @@ class UserRepository
 
                 //用户名
                 if (strcasecmp($key, 'username') == 0 ) {
-                    $user->where('username', 'LIKE', "%{$value}%");
+                    $users->where('username', 'LIKE', "%{$value}%");
                 }
 
             }
@@ -55,16 +55,16 @@ class UserRepository
                 //ID排序
                 if (strcasecmp($key, 'ID') == 0) {
                     $sort = $value ? 'asc' : 'desc';
-                    $user->orderBy('id', $sort);
+                    $users->orderBy('id', $sort);
                 }
             }
         }
         //查询数据数量
-        $count = $user->count();
+        $count = $users->count();
 
         //获取符合条件的记录列表
         $t = ($page-1)*$pageSize;
-        $pages = $user->skip($t)->take($pageSize)->get();
+        $pages = $users->skip($t)->take($pageSize)->get();
 
         $data = [];
         $data['total']  =  $count;
