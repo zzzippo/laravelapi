@@ -28,9 +28,8 @@ class AuthController extends BaseController
             // something went wrong whilst attempting to encode the token
             return responseWrong('token创建失败');
         }
-        $loginUser = $this->me();
         // all good so return the token
-        return response()->json(compact('token', 'loginUser'));
+        return response()->json(compact('token'));
     }
 
     /**
