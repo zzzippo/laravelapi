@@ -32,6 +32,7 @@ class UserRepository
      */
     public function lists($filter, $sorter, $pageSize)
     {
+        $user = DB::table('users');
         /*
      * 构建过滤条件
      */
@@ -41,7 +42,7 @@ class UserRepository
 
                 //用户名
                 if (strcasecmp($key, 'username') == 0 ) {
-                    $this->model->where('username', 'LIKE', "%{$value}%");
+                    $user->where('username', 'LIKE', "%{$value}%");
                 }
 
             }
@@ -53,11 +54,11 @@ class UserRepository
                 //ID排序
                 if (strcasecmp($key, 'ID') == 0) {
                     $sort = $value ? 'asc' : 'desc';
-                    $this->model->orderBy('id', $sort);
+                    $user->orderBy('id', $sort);
                 }
             }
         }
-        return $this->model->orderBy('id', 'desc')->paginate($pageSize);
+        return $user->orderBy('id', 'desc')->paginate($pageSize);
     }
 
 
