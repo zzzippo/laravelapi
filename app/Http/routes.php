@@ -29,6 +29,9 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1','middleware'=>
     // 注册
     $api->post('auth/register', ['as' => 'auth.register', 'uses' => 'AuthController@register']);
 
+    //上传
+    $api->post('upload/img', 'UploadController@imgUpload');
+
     # Article
     // 列表
     $api->get('articles', ['as' => 'article.index','uses' => 'ArticleController@index']);
