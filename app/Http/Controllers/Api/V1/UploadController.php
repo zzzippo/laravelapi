@@ -1,8 +1,9 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Support\Facades\Request;
-class UploadController extends Controller
+use App\Http\Controllers\Api\BaseController;
+class UploadController extends BaseController
 {
 
     //Ajax上传图片
@@ -13,11 +14,11 @@ class UploadController extends Controller
         //允许上传图片类型
         $allowed_extensions = ["png", "jpg"];
 
-        if (!Request::hasFile('file')) {
+        if (!Request::hasFile('file_data')) {
             return response()->json(['errorCode' => 1, 'msg' => '请选择上传文件']);
         }
 
-        $file =Request::file('file');
+        $file =Request::file('file_data');
 
         if ($file->getError() != 0) {
             switch ($file->getError()) {
