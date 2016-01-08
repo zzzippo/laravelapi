@@ -75,7 +75,7 @@ class UserController extends BaseController
      * @param CreateRequest $request
      * @return mixed
      */
-    public function postCreate(CreateRequest $request)
+    public function postCreate(Request $request)
     {
         $user = $this->userRepository->store($request->all());
 
