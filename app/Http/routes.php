@@ -16,6 +16,8 @@ Route::get('/', function () {
 });
 
 
+Route::post('/user',  ['as' => 'user.create', 'uses' => 'UserController@postCreate']);
+
 //Dingo/Api
 $api = app('Dingo\Api\Routing\Router');
 
@@ -37,7 +39,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1','middleware'=>
     $api->get('articles', ['as' => 'article.index','uses' => 'ArticleController@index']);
 
     // 需要jwt验证后才能使用的API
-    $api->group(['middleware' => 'jwt.auth'], function ($api) {
+    $api->group([], function ($api) {
         # Auth
         // 刷新token
         $api->post('auth/refreshToken', ['as' => 'auth.refreshToken','uses' => 'AuthController@refreshToken']);
@@ -47,7 +49,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1','middleware'=>
         // 获得当前登录的个人信息
         $api->get('/user', ['as' => 'user.me', 'uses' => 'UserController@show']);
         //增加用户
-        $api->post('/user', ['as' => 'user.create', 'uses' => 'UserController@postCreate']);
+        //$api->post('/user', ['as' => 'user.create', 'uses' => 'UserController@postCreate']);
         // 获得某个人信息
         $api->get('/user/{id}', ['as' => 'user.show', 'uses' => 'UserController@getUserById']);
         // 更新个人信息

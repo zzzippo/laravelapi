@@ -3,15 +3,14 @@
 /**
  * 当前用户控制器
  */
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers;
 
 use App\Events\UserCreate;
 use App\Http\Requests\Admin\CreateRequest;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Api\BaseController;
 use App\Repositories\UserRepository;
 
-class UserController extends BaseController
+class UserController extends Controller
 {
     private $userRepository;
 
@@ -20,12 +19,7 @@ class UserController extends BaseController
         $this->userRepository = $userRepository;
     }
 
-    /**
-     * 用户分页
-     *
-     * @param Request $request
-     * @return mixed
-     */
+
     public function getUserList(Request $request)
     {
         $filter     = $request->get('filter');
@@ -35,11 +29,6 @@ class UserController extends BaseController
         return responseSuccess($user);
     }
 
-    /**
-     * 所有用户
-     *
-     * @return mixed
-     */
     public function getUsers()
     {
         $users = $this->userRepository->getAll();
@@ -54,12 +43,6 @@ class UserController extends BaseController
         return responseSuccess($this->me());
     }
 
-    /**
-     * 根据ID获取用户信息
-     *
-     * @param $id
-     * @return mixed
-     */
     public function getUserById($id)
     {
         $user = $this->userRepository->getById($id);
@@ -69,13 +52,7 @@ class UserController extends BaseController
         return responseWrong('不存在');
     }
 
-    /**
-     * 添加用户
-     *
-     * @param CreateRequest $request
-     * @return mixed
-     */
-    public function postCreate(CreateRequest $request)
+    public function postCreate(Request $request)
     {
         $user = $this->userRepository->store($request->all());
 
@@ -98,12 +75,6 @@ class UserController extends BaseController
         return responseSuccess($user);
     }
 
-    /**
-     * 删除用户
-     *
-     * @param $id
-     * @return mixed
-     */
     public function delete($id)
     {
         $this->userRepository->destroy($id);
