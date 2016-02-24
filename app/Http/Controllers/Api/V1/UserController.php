@@ -83,7 +83,7 @@ class UserController extends BaseController
         if ($user)
         {
             //给注册用户发邮件
-            event(new UserCreate($user));
+            //event(new UserCreate($user));
             return responseSuccess($user);
         }
         return responseWrong();
