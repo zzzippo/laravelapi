@@ -30,13 +30,9 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1','middleware'=>
     $api->post('auth/login', ['as' => 'auth.login', 'uses' => 'AuthController@login']);
     // 注册
     $api->post('auth/register', ['as' => 'auth.register', 'uses' => 'AuthController@register']);
-
     //上传
     $api->post('upload/img', 'UploadController@imgUpload');
 
-    # Article
-    // 列表
-    $api->get('articles', ['as' => 'article.index','uses' => 'ArticleController@index']);
 
     // 需要jwt验证后才能使用的API
     $api->group(['middleware' => 'jwt.auth'], function ($api) {
@@ -58,6 +54,10 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1','middleware'=>
         $api->delete('/user/{id}', ['as' => 'user.delete', 'uses' => 'UserController@delete']);
         //分页查询用户
         $api->get('/userList', ['as' => 'user.list', 'uses' => 'UserController@getUserList']);
+
+        # Article
+        // 列表
+        $api->get('articles', ['as' => 'article.index','uses' => 'ArticleController@index']);
     });
 });
 
