@@ -63,7 +63,8 @@ class UserController extends BaseController
     public function getUserById($id)
     {
         $user = $this->userRepository->getById($id);
-        if ($user) {
+        if ($user)
+        {
             return responseSuccess($user);
         }
         return responseWrong('不存在');
@@ -79,9 +80,10 @@ class UserController extends BaseController
     {
         $user = $this->userRepository->store($request->all());
 
-        if ($user) {
+        if ($user)
+        {
             //给注册用户发邮件
-            //event(new UserCreate($user));
+            event(new UserCreate($user));
             return responseSuccess($user);
         }
         return responseWrong();
