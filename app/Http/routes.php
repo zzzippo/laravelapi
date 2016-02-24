@@ -39,7 +39,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1','middleware'=>
     $api->get('articles', ['as' => 'article.index','uses' => 'ArticleController@index']);
 
     // 需要jwt验证后才能使用的API
-    $api->group([], function ($api) {
+    $api->group(['middleware' => 'jwt.auth'], function ($api) {
         # Auth
         // 刷新token
         $api->post('auth/refreshToken', ['as' => 'auth.refreshToken','uses' => 'AuthController@refreshToken']);
